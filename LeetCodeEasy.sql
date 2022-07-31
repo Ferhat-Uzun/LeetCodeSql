@@ -54,3 +54,49 @@ STRING_AGG(product,',') WITHIN group (order by product ) as products
 from (select sell_date,product from Activities group by sell_date,product)a
 group by sell_date
 
+--1179. Reformat Department Table
+select id,
+sum(Case when month='Jan' then revenue end) as Jan_Revenue,
+sum(Case when month='Feb' then revenue end) as Feb_Revenue,
+sum(Case when month='Mar' then revenue end) as Mar_Revenue,
+sum(case when month='Apr' then revenue end ) as Apr_Revenue,
+sum(case when month='May' then revenue end ) as May_Revenue,
+sum(case when month='Jun' then revenue end ) as Jun_Revenue,
+sum(case when month='Jul' then revenue end ) as Jul_Revenue,
+sum(case when month='Aug' then revenue end ) as Aug_Revenue,
+sum(case when month='Sep' then revenue end ) as Sep_Revenue,
+sum(case when month='Oct' then revenue end ) as Oct_Revenue,
+sum(case when month='Nov' then revenue end ) as Nov_Revenue,
+sum(case when month='Dec' then revenue end ) as Dec_Revenue
+
+from Department
+group by id
+order by id
+
+
+--1890. The Latest Login in 2020    
+select user_id,max(time_stamp) as last_stamp
+from Logins
+where time_stamp>='2020-01-01' and time_stamp<'2021-01-01'
+group by user_id
+
+--627. Swap Salary
+update Salary 
+set sex = Case
+            when sex='f' then 'm'
+            else 'f'
+          End 
+
+--1965. Employees With Missing Information
+select employee_id 
+from employees 
+where employee_id not in (select employee_id from salaries)
+
+union
+
+select employee_id 
+from salaries
+where employee_id not in (select employee_id from employees)
+order by employee_id
+
+--511. Game Play Analysis I
