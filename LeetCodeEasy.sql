@@ -100,3 +100,45 @@ where employee_id not in (select employee_id from employees)
 order by employee_id
 
 --511. Game Play Analysis I
+select player_id,min(event_date) first_login
+from Activity
+group by player_id
+
+--584. Find Customer Referee
+select name 
+from Customer
+where referee_id  != 2 or referee_id is null
+
+--1148. Article Views I
+select distinct  author_id as id 
+from Views
+where author_id = viewer_id
+order by author_id
+
+ --595. Big Countries
+ select name,population,area
+from World 
+where area>=3000000 or population>=25000000
+
+--1407. Top Travellers
+select u.name,
+(case
+    when sum(r.distance) is null then 0
+    else sum(r.distance)
+end) as travelled_distance 
+from Users u
+left join Rides r on r.user_id = u.id
+group by u.id,u.name
+order by travelled_distance desc , u.name asc
+
+--586. Customer Placing the Largest Number of Orders
+select TOP 1 customer_number
+from Orders
+group by customer_number
+order by count(order_number) desc
+
+--620. Not Boring Movies
+select *
+from Cinema
+where id%2=1 and description not like 'boring'
+order by rating desc
