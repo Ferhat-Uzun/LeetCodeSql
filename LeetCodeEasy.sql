@@ -142,3 +142,16 @@ select *
 from Cinema
 where id%2=1 and description not like 'boring'
 order by rating desc
+
+--1050. Actors and Directors Who Cooperated At Least Three Times
+select actor_id, director_id
+from ActorDirector
+group by actor_id, director_id
+having count(*) > 2
+
+--1729. Find Followers Count
+select user_id,count(follower_id) as followers_count
+from Followers
+group by user_id
+
+--607. Sales Person
