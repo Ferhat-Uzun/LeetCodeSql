@@ -155,3 +155,32 @@ from Followers
 group by user_id
 
 --607. Sales Person
+select name 
+from salesperson
+where salesperson.sales_id not in 
+     (select sales_id
+      from orders
+      inner join company on orders.com_id=company.com_id
+      where company.name='RED')       
+
+--1873. Calculate Special Bonus
+select employee_id,
+case
+    when  name not like 'M%' and employee_id%2=1 then salary
+    else 0
+End as bonus
+from Employees
+order by employee_id
+
+--183. Customers Who Never Order
+select name as Customers
+from Customers
+left join Orders on Orders.customerId= Customers.id
+where Orders.id is null
+
+--1667. Fix Names in a Table
+select user_id,
+concat(Upper(Substring(name,1,1)),
+       Lower(Substring(name,2,len(name)-1))) as name
+from Users
+order by user_id
