@@ -193,4 +193,28 @@ where Person.Id not in
     from Person p
     where p.Email = Person.Email 
     order by Id asc
-));
+))
+
+--1141. User Activity for the Past 30 Days I
+select activity_date as day, count(distinct(user_id)) as active_users
+from Activity 
+where activity_date between '2019-06-28' and '2019-07-27'
+group by activity_date
+
+--596. Classes More Than 5 Students
+select class
+from Courses
+group by class
+having count(student) > 4
+
+--1527. Patients With a Condition
+select *
+from Patients
+where conditions like 'DIAB1%' or conditions like '% DIAB1%'
+
+--197. Rising Temperature
+select w1.id 
+from Weather w1
+inner join Weather w2 on DATEDIFF(day, w2.recordDate, w1.recordDate) = 1
+and w1.temperature > w2.temperature 
+    
