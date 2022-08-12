@@ -184,3 +184,13 @@ concat(Upper(Substring(name,1,1)),
        Lower(Substring(name,2,len(name)-1))) as name
 from Users
 order by user_id
+
+--196. Delete Duplicate Emails
+delete from Person
+where Person.Id not in 
+((
+    select top 1 p.Id 
+    from Person p
+    where p.Email = Person.Email 
+    order by Id asc
+));
