@@ -26,3 +26,24 @@ Where e.salary=  (Select Max(e.salary)
 Select distinct l1.num as ConsecutiveNums
 From Logs l1,Logs l2,Logs l3 
 Where l1.id = l2.id-1 and l2.id=l3.id-1 and l1.num=l2.num and l2.num=l3.num
+
+--176. Second Highest Salary
+SELECT
+    IFNULL(
+      (SELECT DISTINCT Salary
+       FROM Employee
+       ORDER BY Salary DESC
+        LIMIT 1 OFFSET 1),
+    NULL) AS SecondHighestSalary
+
+--177. Nth Highest Salary
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+DECLARE M INT;
+SET M=N-1;
+  RETURN (
+      # Write your MySQL query statement below.
+        SELECT DISTINCT Salary FROM Employee ORDER BY Salary DESC LIMIT M, 1
+  );
+END
+
